@@ -10,6 +10,7 @@ import platform
 from enocean.communicators.serialcommunicator import SerialCommunicator
 from enocean.protocol.packet import RadioPacket
 from enocean.protocol.constants import PACKET, RETURN_CODE, RORG
+from pprint import pprint
 import enocean.utils
 import paho.mqtt.client as mqtt
 
@@ -355,6 +356,7 @@ class Communicator:
                     # Handling received data packet
                     found_property = self._handle_data_packet( packet, cur_sensor, mqtt_json)
                     if not found_property:
+                        pprint(packet)
                         logging.warning("message not interpretable: %s", cur_sensor['name'])
                     else:
                         self._publish_mqtt(cur_sensor, mqtt_json)
